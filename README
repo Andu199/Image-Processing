@@ -1,0 +1,74 @@
+Student: Boldișor Dragoș-Alexandru
+Grupa: 312CB
+
+    Programarea Calculatoarelor
+        TEMA 3
+
+    Am folosit Visual Studio în care tab-ul ocupă 4 spații (deschiderea cu alte
+editoare de text poate duce la un număr mai mare de caractere pe linie).
+
+        I. DESCHIDERE FISIER INITIAL
+    Folosind functia open_files deschidem fișierul input.txt unde se află
+informații cu privire la numele fișierului imagine precum și căile relative pe
+care le reținem în vectori ce vor fi dezalocați atunci când este cazul.
+
+        II. CITIRE / SCRIERE (ALOCARE / DEZALOCARE)
+    Folosind funcția allocImage, alocăm, de fapt, harta de biți (alocarea
+imaginii se face în interiorul funcțiilor pentru task-uri / în funcția de
+citire). Folosind funcția freeImage eliberăm imaginea complet. Funcția
+read_image alocă imaginea, citește informațiile din infoheader și fileheader și
+alocă harta de biți (cu funcția allocImage). Apoi citește harta și are grijă să
+nu citească paddingul (fseek). Funcția print_image crează numele noului fișier
+în funcție de task-ul la care ne aflăm apoi afișează poza și ține cont de
+padding.
+
+        III. FUNCȚIA copy
+    Copiează dintr-o poză informațiile din infoheader și fileheader în altă
+poză.
+
+        IV. TASK 1
+    Funcția Black_White crează noua imagine în care vom lucra și pe care o vom
+afișa și, aplicând formula, creăm imaginea alb-negru.
+
+        V. TASK 2
+    În funcția No_Crop creăm noua imagine. O aducem la o formă pătratică (dăm
+lățimii / lungimii valoarea mai mare dintre cele două, după care alocăm).
+Ținem cont de faptul că imaginea este răsturnată atunci când adăugăm pixelii
+albi.
+
+        VI. TASK 3
+    În funcția Filter creăm noua imagine și citim matricea-filtru. Apoi,
+folosind funcția ajutătoare apply_filter aflăm pixelul rezultat (aflând,
+bineînțeles, valoarea pentru culorile fundamentale). De asemenea, verificăm ca
+valoarea să nu depășească 255 sau 0. În funcția apply_filter facem înmulțirea
+specifică.
+
+        VII. TASK 4
+    În funcția Pooling creăm noua imagine și citim mode-ul (m sau M) și
+lungimea liniei matricii în care va fi inclus pixelul. Pentru fiecare culoare
+aplicăm funcția apply_pooling care va afla cea mai mare / cea mai mică valoare
+din zonă (matrice).
+
+        VIII. TASK 5
+    În funcția Clustering citim threshold-ul. Dacă threshold-ul este 0
+înseamnă, conform formulei, că toate modulele vor fi egale cu 0 (sunt numere
+pozitive) ceea ce înseamnă că pixelii sunt egali deci imaginea nu se va schimba
+cu nimic și, prin urmare, este mai simplu să afișăm direct imaginea. Altfel,
+creăm noua imagine. Mai avem și vectorul bgr de tip pixel care va reține pe
+indicele i culoarile specifice insulei i, precum și matricea verify_bitmap care
+va avea pe poziția corespunzătoare unui pixel numărul insulei (pentru a știi
+unde să înlocuim cu noile culori). Aplicăm pentru fiecare pixel funcția
+find_color_island care va întoarce un element de tip pixel ce va fi inclus în
+vectorul bgr după realocare. La final înlocuim în noua imagine și eliberăm
+vectorul și matricea.
+    În funcția find_color_island aplicăm algoritmul de fill iterativ cu
+ajutorul cozii (care va fi alocată dinamic și realocată când fie găsim un nou
+element pe care îl introducem fie când elementului de pe poziția 0 i s-au
+verificat vecinii și putem trece la următorul). Notăm în verify_bitmap numărul
+insulei curente și în bgr adunăm culorile urmând să fie împărțite la final la
+variabila n care reține numărul de pixeli încluși în insulă.
+
+        IX. MAIN
+    În main sunt alocați (apoi dezalocați) vectorii ce conțin nume fișierelor
+și sunt apelate funcțiile necesare rezolvării temei.
+    
